@@ -5,11 +5,15 @@ class NewMessageForm extends React.Component {
 
   state={
     text: '',
-    conversation_id: this.props.conversation_id
+    conversation_id: this.props.conversation_id,
+    user_id: this.props.user_id,
   }
 
   componentWillReceiveProps = (nextProps) => {
-    this.setState({ conversation_id: nextProps.conversation_id })
+    this.setState({
+      conversation_id: nextProps.conversation_id,
+      user_id: nextProps.user_id
+    })
   }
 
   handleChange = (e) => {
@@ -18,6 +22,7 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    console.log(this.state)
     fetch(`${API_ROOT}/messages`, {
       method: 'POST',
       headers: HEADERS,

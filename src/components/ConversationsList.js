@@ -11,6 +11,7 @@ class ConversationsList extends React.Component {
   state={
     conversations: [],
     activeConversation: null,
+    user_id: 1,
   }
 
   componentDidMount() {
@@ -39,7 +40,6 @@ class ConversationsList extends React.Component {
     const conversation = conversations.find(
       conversation => {
         if(parseInt(conversation.id) === parseInt(message.conversation_id)) {
-          console.log(`handle eceived message ${message.conversation_id} ${conversation.id}`)
           return true
         }
       }
@@ -76,7 +76,7 @@ class ConversationsList extends React.Component {
 
         {
           activeConversation ? (
-          <MessagesArea
+          <MessagesArea user_id={this.state.user_id}
             conversation={findActiveConversation(conversations, activeConversation)}
           />
         ) : null
