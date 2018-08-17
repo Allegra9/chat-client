@@ -3,12 +3,14 @@ import React, { Component, Fragment } from 'react';
 import ConversationsList from './components/ConversationsList';
 
 import SignUpForm from './components/user/SignUpForm'
-import LoginForm from './components/user/LoginForm'
+import SignIn from './components/user/Signin'
+// import LoginForm from './components/user/LoginForm'
 
 import Button from '@material-ui/core/Button';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme';
+
 
 
 class App extends Component {
@@ -32,11 +34,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-         <MuiThemeProvider theme={theme}>
-            <Button variant="outlined"  color="secondary">TEST BUTTON</Button>
-            <Button variant="outlined"  color="primary">TEST BUTTON</Button>
+        {//
+         //<MuiThemeProvider theme={theme}>
+            //<Button variant="outlined"  color="secondary">TEST BUTTON</Button>
+            //<Button variant="outlined"  color="primary">TEST BUTTON</Button>
 
-          </MuiThemeProvider>
+          //</MuiThemeProvider>
+        }
 
         {
           this.state.active_user ?
@@ -49,8 +53,9 @@ class App extends Component {
           </Fragment>
             :
             <Fragment>
-              <SignUpForm handleLogin={this.handleLogin}/>
-              <LoginForm handleLogin={this.handleLogin} />
+              {//<SignUpForm handleLogin={this.handleLogin}/>
+              }
+              <SignIn handleLogin={this.handleLogin} />
             </Fragment>
         }
 
