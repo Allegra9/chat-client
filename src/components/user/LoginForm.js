@@ -11,10 +11,10 @@ class LoginForm extends Component {
   }
 
   //Send login reqeust and redirect
-  handeSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     loginUser(this.state)
-    .then(resp => console.log("LOGIN USER", resp)) //REDIRECT TO CONVERSATIONS
+    .then(resp => this.props.handleLogin(resp)) //REDIRECT TO CONVERSATIONS
     //Fetch request to sessionscontroller as POST
   }
 
