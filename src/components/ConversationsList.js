@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActionCable } from 'react-actioncable-provider';
-import { API_ROOT } from '../constants';
+import { getConversations } from '../adapter/api';
 
 import NewConversationForm from './NewConversationForm';
 import MessagesArea from './MessagesArea';
@@ -14,12 +14,21 @@ class ConversationsList extends React.Component {
     user_id: 1,
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({
+  //     user_id : nextProps.activeUser.id,
+  //   })
+  // }
+
   componentDidMount() {
-    fetch(`${API_ROOT}/conversations`)
-      .then(res => res.json())
+    getConversations()
       .then(conversations => {
         this.setState({ conversations })
       })
+
+    this.setState({
+      user_id : this.props.activeUser.id
+    })
   }
 
   handleClick = (id) => {

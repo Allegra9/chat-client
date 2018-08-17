@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_ROOT, HEADERS } from '../constants';
+import { createConversation } from '../adapter/api';
 
 class NewConversationForm extends React.Component {
 
@@ -13,11 +13,7 @@ class NewConversationForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    fetch(`${API_ROOT}/conversations`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify(this.state)
-    })
+    createConversation(this.state)
     this.setState({ title: '' })
   }
 

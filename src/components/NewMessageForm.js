@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_ROOT, HEADERS } from '../constants';
+import { postMessage } from '../adapter/api';
 
 class NewMessageForm extends React.Component {
 
@@ -22,12 +22,7 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state)
-    fetch(`${API_ROOT}/messages`, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify(this.state)
-    })
+    postMessage(this.state)
     this.setState({ text: '' })
   }
 
