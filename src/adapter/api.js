@@ -6,10 +6,22 @@ const HEADERS = {
   Accept: 'application/json',
 };
 
-
 export const getConversations = (id) => {
   return fetch(`${API_ROOT}/${id}/conversations`)
     .then(res => res.json())
+}
+
+export const getAllConversations = () => {
+  return fetch(`${API_ROOT}/conversations`)
+    .then(res => res.json())
+}
+
+export const subscribeUser = (conversation_id, user_id) => {
+  return fetch(`${API_ROOT}/${user_id}/conversations/${conversation_id}`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({})
+  })
 }
 
 export const postMessage = (messageObj) => {
