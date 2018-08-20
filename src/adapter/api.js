@@ -7,8 +7,8 @@ const HEADERS = {
 };
 
 
-export const getConversations = () => {
-  return fetch(`${API_ROOT}/conversations`)
+export const getConversations = (id) => {
+  return fetch(`${API_ROOT}/${id}/conversations`)
     .then(res => res.json())
 }
 
@@ -38,8 +38,8 @@ export const createUser = (userSignupObj) => {
     .then(res => res.json())
 }
 
-export const createConversation = (conversationObj) => {
-  return fetch(`${API_ROOT}/conversations`, {
+export const createConversation = (id, conversationObj) => {
+  return fetch(`${API_ROOT}/${id}/conversations`, {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(conversationObj)

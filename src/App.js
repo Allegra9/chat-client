@@ -11,7 +11,22 @@ import Button from '@material-ui/core/Button';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme';
 
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    height: "95vh",
+    width: "95vw"
+  },
+  control: {
+    padding: theme.spacing.unit * 2
+  }
+});
 
 class App extends Component {
 
@@ -34,22 +49,25 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {//
-         //<MuiThemeProvider theme={theme}>
-            //<Button variant="outlined"  color="secondary">TEST BUTTON</Button>
-            //<Button variant="outlined"  color="primary">TEST BUTTON</Button>
-
-          //</MuiThemeProvider>
-        }
-
         {
           this.state.active_user ?
-          <Fragment>
-            <h1> WELCOME {this.state.active_user.name} </h1>
+          <Fragment >
+            <Grid container="container" className="root" justify="center" alignItems="center" direction="row">
+              <Grid item xs={12}>
+                <Paper className="paper">
+                  <h1>
+                    WELCOME {this.state.active_user.name}
+                  </h1>
+                  <Button color="primary" onClick={this.handleLogout}>LOGOUT</Button>
+                </Paper>
+              </Grid>
 
-            <Button color="primary" onClick={this.handleLogout}>LOGOUT</Button>
 
-            <ConversationsList activeUser={this.state.active_user}/>
+              <ConversationsList activeUser={this.state.active_user}/>
+
+
+
+            </Grid>
           </Fragment>
             :
             <Fragment>
@@ -64,4 +82,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withStyles(styles)(App);

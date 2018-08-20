@@ -17,7 +17,7 @@ class NewMessageForm extends React.Component {
   }
 
   handleChange = (e) => {
-    this.setState({ text: e.target.value }, console.log("messageform", this.state))
+    this.setState({ text: e.target.value })
   }
 
   handleSubmit = (e) => {

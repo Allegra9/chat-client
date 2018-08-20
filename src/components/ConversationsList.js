@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { ActionCable } from 'react-actioncable-provider';
 import { getConversations } from '../adapter/api';
 
 import NewConversationForm from './NewConversationForm';
 import MessagesArea from './MessagesArea';
 import Cable from './Cable';
+
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 class ConversationsList extends React.Component {
 
@@ -20,16 +23,16 @@ class ConversationsList extends React.Component {
   //   })
   // }
 
-  componentDidMount() {
-    getConversations()
-      .then(conversations => {
-        this.setState({ conversations })
-      })
 
-    this.setState({
-      user_id : this.props.activeUser.id
-    })
-  }
+
+componentDidMount() {
+  this.setState({
+    user_id: this.props.activeUser.id
+  }, () => getConversations(this.state.user_id).then(conversations => {
+    console.log("Conversations: ", conversations);
+    this.setState({conversations: conversations})
+  }))
+}
 
   handleClick = (id) => {
     console.log("Active ID: ", id);
@@ -60,7 +63,7 @@ class ConversationsList extends React.Component {
   render = () => {
     const { conversations, activeConversation } = this.state
     return (
-      <div className="conversationsList">
+      <Fragment className="conversationsList">
         <ActionCable channel={{ channel: 'ConversationsChannel' }}
           onReceived={this.handleReceivedConversation}
         />
@@ -74,23 +77,29 @@ class ConversationsList extends React.Component {
           ) : null
         }
 
+        <Grid item xs={3}>
+          <Paper className="paper">
         <h2>Conversations</h2>
         <ul>
           {
             mapConversations(conversations, this.handleClick)
           }
         </ul>
-
-        <NewConversationForm />
+        <NewConversationForm userId={this.state.user_id}/>
+          </Paper>
+        </Grid>
 
         {
-          activeConversation ? (
-          <MessagesArea user_id={this.state.user_id}
-            conversation={findActiveConversation(conversations, activeConversation)}
-          />
-        ) : null
+          activeConversation
+            ? (<Grid item="item" xs={9}>
+              <Paper className="paper">
+                <MessagesArea user_id={this.state.user_id} conversation={findActiveConversation(conversations, activeConversation)}/>
+              </Paper>
+            </Grid>)
+            : null
         }
-      </div>
+
+      </Fragment>
     )
   }
 }

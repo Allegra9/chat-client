@@ -13,7 +13,7 @@ class NewConversationForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    createConversation(this.state)
+    createConversation(this.props.userId,this.state)
     this.setState({ title: '' })
   }
 

@@ -53,7 +53,13 @@ class SignIn extends React.Component{
   handleSubmit = (event) => {
     event.preventDefault();
     loginUser(this.state)
-      .then(resp => this.props.handleLogin(resp))
+      .then(resp => {
+        if(resp.error) {
+          console.log(resp.error);
+        } else {
+          this.props.handleLogin(resp)
+        }
+      })
   }
 
   handleChange = (event) => {
@@ -76,7 +82,7 @@ class SignIn extends React.Component{
             <form onSubmit={(e) => this.handleSubmit(e)} className={classes.form}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="username">Username</InputLabel>
-                <Input id="username" type="text" name="username" autoComplete="username" autoFocus />
+                <Input id="username" type="text" name="username" autoComplete="username" autoFocus onChange={this.handleChange}/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -85,6 +91,7 @@ class SignIn extends React.Component{
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  onChange={this.handleChange}
                 />
               </FormControl>
               <Button
