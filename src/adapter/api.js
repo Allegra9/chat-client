@@ -15,7 +15,7 @@ export const getConversations = (id, token) => {
       'Content-Type': 'application/json',
        'Accept': 'application/json',
        'Authorization': getToken()
-  }
+    }
   })
     .then(res => res.json())
 }

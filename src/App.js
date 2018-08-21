@@ -40,7 +40,7 @@ class App extends Component {
   handleLogin = (response) => { //passed as props to SignIn
     console.log(response);
     localStorage.setItem('token', response.token);
-    this.updateCurrentUser(response.token);
+      this.updateCurrentUser(response.token);
   }
 
   componentDidMount() {
@@ -54,7 +54,6 @@ class App extends Component {
 
     getCurrentUser(localStorage.getItem('token'))
       .then(resp => {
-        console.log(resp)
         if(resp.error) {
           this.handleLogout();
         } else {
