@@ -16,6 +16,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Button from '@material-ui/core/Button';
 
+import {getCurrentUser} from './adapter/api'
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -35,10 +37,24 @@ class App extends Component {
     active_user : undefined
   }
 
-  handleLogin = (user) => {
-    this.setState({
-      active_user : user
-    })
+  handleLogin = (response) => { //passed as props to SignIn
+    console.log(response);
+    localStorage.setItem('token', response.token);
+    this.updateCurrentUser(response.token);
+  }
+
+  updateCurrentUser = (token) => {
+    getCurrentUser(token)
+      .then(resp => {
+        if(resp.error) {
+          this.handleLogout();
+        } else {
+          console.log("User Logged In: ", resp);
+          this.setState({
+            active_user : resp
+          })
+        }
+      })
   }
 
   handleLogout = () => {

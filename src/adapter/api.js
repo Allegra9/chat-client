@@ -3,7 +3,7 @@ export const API_WS_ROOT = 'ws://localhost:3000/cable';
 const API_ROOT = 'http://localhost:3000';
 const HEADERS = {
   'Content-Type': 'application/json',
-  Accept: 'application/json',
+   Accept: 'application/json',
 };
 
 export const getConversations = (id) => {
@@ -48,6 +48,16 @@ export const createUser = (userSignupObj) => {
     body: JSON.stringify(userSignupObj)
     })
     .then(res => res.json())
+}
+
+export const getCurrentUser = (token) => {
+  return fetch(`${API_ROOT}/current_user`, {
+    headers: {
+      'Content-Type': 'application/json',
+       Accept: 'application/json',
+       Authorization: token
+    },
+  }).then(res => res.json())
 }
 
 export const createConversation = (id, conversationObj) => {
