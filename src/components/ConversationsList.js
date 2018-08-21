@@ -23,12 +23,10 @@ class ConversationsList extends React.Component {
       user_id: this.props.activeUser.id
     }, () => {
       getConversations(this.state.user_id).then(conversations => {
-      console.log("Conversations: ", conversations);
       this.setState({conversations: conversations})
     })
       getAllConversations()
         .then(allConversations => {
-        console.log("All Conversations: ", allConversations);
         this.setState({allConversations: allConversations})
       })
     })
@@ -41,40 +39,68 @@ class ConversationsList extends React.Component {
 
   handleOptionSelect = (e) => {
     console.log("SELECTED ID: ", e.target.value)
-    subscribeUser(parseInt(e.target.value), this.state.user_id)
-      .then(res => console.log(res))
+    if(e.target.value) {
+      subscribeUser(parseInt(e.target.value), this.state.user_id)
+        .then(resp => {
+          if(!resp.error) {
+            this.setState({
+            conversations: [...this.state.conversations, resp]
+          })
+        } else {
+          console.log(resp.error)
+        }
+      }
+      )
+
+    }
   }
 
   handleReceivedConversation = (response) => {
     const { conversation } = response;
-    if (response.type === "ADDING_USER") {
-      console.log("A new user has joined", response.new_user)
-      if (this.state.user_id === response.new_user.id) {
-        this.handleClick(conversation.id)
-        this.setState({
-          conversations: [...this.state.conversations, conversation],
-        });
-      }
-    }else {
       this.setState({
         conversations: [...this.state.conversations, conversation],
         allConversations: [...this.state.allConversations, conversation]
       });
-    }
   };
 
   handleReceivedMessage = (response) => {
+
     const {message} = response
     const conversations = [...this.state.conversations]
-    const conversation = conversations.find(
-      conversation => {
-        if(parseInt(conversation.id) === parseInt(message.conversation_id)) {
-          return true
+
+    switch(response.type) {
+
+      case "ADDING_USER":
+        const new_message = {
+          text: `${response.new_user.name} has joined the channel`,
+          id: "ADMIN",
+          user_name: "CHANNEL BOT",
+          created_at: Date.now()
         }
-      }
-    )
-    conversation.messages = [...conversation.messages, message]
-    this.setState({ conversations })
+        const active_conversation = conversations.find(
+          conversation => {
+            if(parseInt(conversation.id) === parseInt(response.conversation.id)) {
+              return true
+            }
+          }
+        )
+        active_conversation.messages = [...active_conversation.messages, new_message]
+        this.setState({ conversations })
+      break;
+
+      default:
+        const conversation = conversations.find(
+          conversation => {
+            if(parseInt(conversation.id) === parseInt(message.conversation_id)) {
+              return true
+            }
+          }
+        )
+
+        conversation.messages = [...conversation.messages, message]
+        this.setState({ conversations })
+        break;
+    }
   }
 
   render = () => {
@@ -98,14 +124,13 @@ class ConversationsList extends React.Component {
           <Paper className="paper">
         <h2>Channels:</h2>
         <p>Search for channels:</p>
-          <input id={0} list="browsers" onSelect={this.handleOptionSelect} />
-          <datalist id="browsers">
+          <select onChange={this.handleOptionSelect} >
             {
               this.state.allConversations.map(conversation => {
               return <option value={conversation.id} id={conversation.id}> {conversation.title} </option>
             })
             }
-          </datalist>
+          </select>
 
         <ul>
           {
@@ -142,7 +167,7 @@ const findActiveConversation = (conversations, activeConversation) => {
 const mapConversations = (conversations, handleClick) => {
   return conversations.map(conversation => {
     return (
-      <li key={conversation.id} onClick={() => handleClick(conversation.id)} >
+      <li key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
         {conversation.title}
       </li>
     )

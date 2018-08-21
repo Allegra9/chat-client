@@ -17,11 +17,11 @@ export const getAllConversations = () => {
 }
 
 export const subscribeUser = (conversation_id, user_id) => {
-  return fetch(`${API_ROOT}/${user_id}/conversations/${conversation_id}`, {
+  return fetch(`${API_ROOT}/subscriptions`, {
     method: 'POST',
     headers: HEADERS,
-    body: JSON.stringify({})
-  })
+    body: JSON.stringify({user_id: user_id, conversation_id: conversation_id})
+  }).then(resp => resp.json())
 }
 
 export const postMessage = (messageObj) => {
