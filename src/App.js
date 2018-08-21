@@ -43,13 +43,21 @@ class App extends Component {
     this.updateCurrentUser(response.token);
   }
 
-  updateCurrentUser = (token) => {
-    getCurrentUser(token)
+  componentDidMount() {
+    if(localStorage.getItem('token')) {
+      this.updateCurrentUser();
+    }
+  }
+
+  updateCurrentUser = () => {
+    console.log("Attempting to fetch current user...");
+
+    getCurrentUser(localStorage.getItem('token'))
       .then(resp => {
+        console.log(resp)
         if(resp.error) {
           this.handleLogout();
         } else {
-          console.log("User Logged In: ", resp);
           this.setState({
             active_user : resp
           })
@@ -61,6 +69,7 @@ class App extends Component {
     this.setState({
       active_user : undefined
     })
+    localStorage.clear();
   }
 
   render() {
@@ -71,7 +80,6 @@ class App extends Component {
           <Fragment >
             <Grid container="container" className="root" justify="center" alignItems="center" direction="row">
               <NavBar active_user={this.state.active_user} handleLogout={this.handleLogout}/>
-
               <ConversationsList activeUser={this.state.active_user}/>
 
             </Grid>

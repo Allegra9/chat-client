@@ -55,9 +55,9 @@ class SignIn extends React.Component{
     loginUser(this.state)
       .then(resp => {
         if(resp.error) {
+          console.log("Response", resp);
           console.log(resp.error);
         } else {
-          localStorage.setItem('token', resp.token);
           this.props.handleLogin(resp)
         }
       })

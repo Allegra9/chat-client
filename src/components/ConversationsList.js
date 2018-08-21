@@ -23,7 +23,7 @@ class ConversationsList extends React.Component {
       user_id: this.props.activeUser.id
     }, () => {
       getConversations(this.state.user_id).then(conversations => {
-      this.setState({conversations: conversations})
+        this.setState({conversations: conversations})
     })
       getAllConversations()
         .then(allConversations => {

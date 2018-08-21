@@ -6,8 +6,17 @@ const HEADERS = {
    Accept: 'application/json',
 };
 
-export const getConversations = (id) => {
-  return fetch(`${API_ROOT}/${id}/conversations`)
+const getToken = () => localStorage.getItem('token');
+
+export const getConversations = (id, token) => {
+  return fetch(`${API_ROOT}/${id}/conversations`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+       'Accept': 'application/json',
+       'Authorization': getToken()
+  }
+  })
     .then(res => res.json())
 }
 
@@ -16,18 +25,26 @@ export const getAllConversations = () => {
     .then(res => res.json())
 }
 
-export const subscribeUser = (conversation_id, user_id) => {
+export const subscribeUser = (conversation_id, user_id, token) => {
   return fetch(`${API_ROOT}/subscriptions`, {
     method: 'POST',
-    headers: HEADERS,
+    headers: {
+      'Content-Type': 'application/json',
+       'Accept': 'application/json',
+       'Authorization': getToken()
+    },
     body: JSON.stringify({user_id: user_id, conversation_id: conversation_id})
   }).then(resp => resp.json())
 }
 
-export const postMessage = (messageObj) => {
+export const postMessage = (messageObj, token) => {
   return fetch(`${API_ROOT}/messages`, {
     method: 'POST',
-    headers: HEADERS,
+    headers: {
+      'Content-Type': 'application/json',
+       'Accept': 'application/json',
+       'Authorization': getToken()
+    },
     body: JSON.stringify(messageObj)
   })
 }
@@ -52,18 +69,23 @@ export const createUser = (userSignupObj) => {
 
 export const getCurrentUser = (token) => {
   return fetch(`${API_ROOT}/current_user`, {
+    method: "GET",
     headers: {
       'Content-Type': 'application/json',
-       Accept: 'application/json',
-       Authorization: token
+       'Accept': 'application/json',
+       'Authorization': getToken()
     },
   }).then(res => res.json())
 }
 
-export const createConversation = (id, conversationObj) => {
+export const createConversation = (id, conversationObj, token) => {
   return fetch(`${API_ROOT}/${id}/conversations`, {
     method: 'POST',
-    headers: HEADERS,
+    headers: {
+      'Content-Type': 'application/json',
+       'Accept': 'application/json',
+       'Authorization': getToken()
+    },
     body: JSON.stringify(conversationObj)
   })
 }
