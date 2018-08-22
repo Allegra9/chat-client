@@ -21,7 +21,7 @@ const styles = {
        },
      }
 
-const MessagesArea = ({ conversation: {id, title, messages }, user_id }) => {
+const MessagesArea = ({ conversation: {id, title, messages }, user_id, toggleEmojis, showEmojis }) => {
   return (
     <div>
       <div style={styles.container} className="MessagesArea">
@@ -31,7 +31,7 @@ const MessagesArea = ({ conversation: {id, title, messages }, user_id }) => {
         </ul>
       </div>
       <div>
-        <NewMessageForm conversation_id={id} user_id={user_id} />
+        <NewMessageForm conversation_id={id} user_id={user_id} toggleEmojis={toggleEmojis} showEmojis={showEmojis} />
       </div>
     </div>
   )
