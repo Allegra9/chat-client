@@ -76,12 +76,9 @@ class App extends Component {
       <div className="App">
         {
           this.state.active_user ?
-          <Fragment >
-            <Grid container="container" className="root" justify="center" alignItems="center" direction="row">
+          <Fragment>
               <NavBar active_user={this.state.active_user} handleLogout={this.handleLogout}/>
               <ConversationsList activeUser={this.state.active_user}/>
-
-            </Grid>
           </Fragment>
             :
             <Fragment>
