@@ -30,20 +30,8 @@ class NewMessageForm extends React.Component {
     this.setState({ text: '' })
   }
 
-  // onEmojiClick = (code, emoji) => {
-  //   console.log(code, emoji)
-  //   //let emojiPic = jsemoji.replace_colons(`:${emoji.name}:`);
-  //   let emojiCode = jsemoji.replace_unified(code);
-  //   let emojiPic = String.fromCodePoint(`0x${emojiCode}`)
-  //   this.setState({
-  //     text: this.state.text + emojiPic
-  //   })
-  // }
-
-  //jsemoji.replace_colons(`:${emojiName}:`);
-
   addEmoji = (e) => {
-    console.log(e.unified)
+    console.log(e)
     let emojiPic = String.fromCodePoint(`0x${e.unified}`)
       this.setState({
         text: this.state.text + emojiPic
@@ -107,14 +95,14 @@ class NewMessageForm extends React.Component {
           this.props.showEmojis ?
           <span>
             <span style={styles.emojiPicker} >
-              <Picker  onSelect={this.addEmoji} />
+              <Picker onSelect={this.addEmoji} />
             </span>
             <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
-              {String.fromCodePoint(`0x1f60a`)}
+              {String.fromCodePoint(0x1f60a)}
             </p>
           </span> :
             <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
-              {String.fromCodePoint(`0x1f60a`)}
+              {String.fromCodePoint(0x1f60a)}
             </p>
         }
       </div>
@@ -123,7 +111,3 @@ class NewMessageForm extends React.Component {
 }
 
 export default NewMessageForm;
-
-//   <Picker onSelect={this.handleEmojiClick} />
-
- //  <EmojiPicker onEmojiClick={this.onEmojiClick} />
