@@ -6,6 +6,7 @@ const styles = {
          overflowY: 'scroll',
          flex: 1,
        },
+
        ul: {
          listStyle: 'none',
        },
@@ -30,9 +31,9 @@ const MessagesArea = ({ conversation: {id, title, messages }, user_id, toggleEmo
           {orderedMessages(messages)}
         </ul>
       </div>
-      <div>
+      <div style={{bottom:0, width:'100%', position:'fixed'}}>
         <NewMessageForm conversation_id={id} user_id={user_id} toggleEmojis={toggleEmojis} showEmojis={showEmojis} />
-      </div>
+        </div>
     </div>
   )
 }

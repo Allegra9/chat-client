@@ -10,6 +10,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 import SimpleSnackbar from './SimpleSnackbar'
 
 // import Grid from "@material-ui/core/Grid";
@@ -17,7 +20,7 @@ import SimpleSnackbar from './SimpleSnackbar'
 
 class ConversationsList extends React.Component {
 
-  state={
+  state = {
     conversations: [],
     allConversations: [],
     activeConversation: null,
@@ -132,16 +135,18 @@ class ConversationsList extends React.Component {
   render = () => {
     const styles = {
       container: {
-        height: '100vh',
+        height: '95vh',
         display: 'flex',
         flexDirection: 'column',
-        paddingTop : '5em'
+        paddingTop : '5em',
+        paddingBottom : '5em',
+        zIndex:'-10'
       },
       chatContainer: {
         paddingLeft: '20px',
         flex: 'none',
         width: '70%',
-        height: '100vh',
+        height: '95vh',
         display: 'inline',
 
         border: '1px solid #000',
@@ -202,8 +207,8 @@ class ConversationsList extends React.Component {
       <div style={styles.chatListContainer} >
         <span style={styles.whosOnlineListContainer} >
           <p>Search for channels:</p>
-          <FormControl style={{minWidth: '120px'}}>
-            <Select native onChange={this.handleOptionSelect} >
+          <FormControl style={{color:'white', minWidth: '120px'}}>
+            <Select native style={{color:'white'}} onChange={this.handleOptionSelect} >
               {
                 this.state.allConversations.map(conversation => {
                 return <option value={conversation.id} id={conversation.id}>
@@ -216,14 +221,17 @@ class ConversationsList extends React.Component {
 
         <div style={styles.channelsSection}>
           <p>Channels:</p>
-          <ul style={styles.ul}>
+          <List>
             {
               mapConversations(conversations, this.handleClick)
             }
-          </ul>
+          </List>
         </div>
 
-          <NewConversationForm userId={this.state.user_id}/>
+
+            <NewConversationForm userId={this.state.user_id}/>
+
+
         </span>
         {
           activeConversation
@@ -264,11 +272,9 @@ const findActiveConversation = (conversations, activeConversation) => {
 const mapConversations = (conversations, handleClick) => {
   return conversations.map(conversation => {
     return (
-      <li style={styles.li} key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
+      <ListItem button key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
         # {conversation.title}
-      </li>
-
-
+      </ListItem>
     )
   })
 }
