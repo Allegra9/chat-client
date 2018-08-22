@@ -6,8 +6,8 @@ import NewConversationForm from './NewConversationForm';
 import MessagesArea from './MessagesArea';
 import Cable from './Cable';
 
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+// import Grid from "@material-ui/core/Grid";
+// import Paper from "@material-ui/core/Paper";
 
 class ConversationsList extends React.Component {
 
@@ -16,6 +16,13 @@ class ConversationsList extends React.Component {
     allConversations: [],
     activeConversation: null,
     user_id: 1,
+    showEmojis: false,
+  }
+
+  toggleEmojis = () => {
+    this.setState({
+      showEmojis: !this.state.showEmojis
+    })
   }
 
   componentDidMount() {
@@ -34,7 +41,10 @@ class ConversationsList extends React.Component {
 
   handleClick = (id) => {
     console.log("Active ID: ", id);
-    this.setState({ activeConversation: id})
+    this.setState({
+      activeConversation: id,
+      showEmojis: false,
+    })
   }
 
   handleOptionSelect = (e) => {
@@ -50,8 +60,7 @@ class ConversationsList extends React.Component {
           console.log(resp.error)
         }
       }
-      )
-
+     )
     }
   }
 
@@ -104,59 +113,128 @@ class ConversationsList extends React.Component {
   }
 
   render = () => {
+    const styles = {
+      container: {
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      chatContainer: {
+        paddingLeft: '20px',
+        flex: 'none',
+        width: '70%',
+        height: '100vh',
+        display: 'inline',
+
+        border: '1px solid #000',
+        overflowY: 'scroll',
+        overflowX: 'scroll',
+        paddingBottom: '20px',
+
+      },
+      whosOnlineListContainer: {
+        width: '25%',
+        height: '95vh',
+        flex: 'none',
+        padding: '20px',
+        backgroundColor: '#2c303b',
+        color: 'white',
+        display: 'inline',
+        overflowY: 'scroll',
+      },
+
+      li: {
+        display: 'flex',
+        marginTop: 5,
+        marginBottom: 5,
+        paddingTop: 2,
+        paddingBottom: 2,
+      },
+
+      chatListContainer: {
+        padding: 0,
+        width: '100%',
+        display: 'flex',
+        //flexDirection: 'column',
+        border: '1px solid grey',
+      },
+      ul: {
+        listStyle: 'none',
+      },
+      channelsSection: {
+        margin: '50px 0',
+        //border: '1px solid #fff',
+      },
+    } //styles
+
     const { conversations, activeConversation } = this.state
     return (
-      <Fragment>
-        <ActionCable channel={{ channel: 'ConversationsChannel', conversation_id: this.state.activeConversation }}
+      <Fragment style={styles.container}>
+        <ActionCable channel={{ channel: 'ConversationsChannel',
+          conversation_id: this.state.activeConversation }}
           onReceived={this.handleReceivedConversation}
         />
-
-        {
-          this.state.conversations.length ?
+        { this.state.conversations.length ?
           (
             <Cable conversations={conversations}
               handleReceivedMessage={this.handleReceivedMessage}
             />
           ) : null
         }
+      <div style={styles.chatListContainer} >
+        <span style={styles.whosOnlineListContainer} >
+          <p>Search for channels:</p>
+            <select onChange={this.handleOptionSelect} >
+              {
+                this.state.allConversations.map(conversation => {
+                return <option value={conversation.id} id={conversation.id}>
+                        {conversation.title}
+                       </option>
+              })
+              }
+            </select>
 
-        <Grid item xs={3}>
-          <Paper className="paper">
-        <h2>Channels:</h2>
-        <p>Search for channels:</p>
-          <select onChange={this.handleOptionSelect} >
+        <div style={styles.channelsSection}>
+          <p>Channels:</p>
+          <ul style={styles.ul}>
             {
-              this.state.allConversations.map(conversation => {
-              return <option value={conversation.id} id={conversation.id}> {conversation.title} </option>
-            })
+              mapConversations(conversations, this.handleClick)
             }
-          </select>
+          </ul>
+        </div>
 
-        <ul>
-          {
-            mapConversations(conversations, this.handleClick)
-          }
-        </ul>
-        <NewConversationForm userId={this.state.user_id}/>
-          </Paper>
-        </Grid>
+          <NewConversationForm userId={this.state.user_id}/>
+        </span>
+
 
         {
           activeConversation
-            ? (<Grid item="item" xs={9}>
-              <Paper className="paper">
-                <MessagesArea user_id={this.state.user_id} conversation={findActiveConversation(conversations, activeConversation)}/>
-              </Paper>
-            </Grid>)
+            ? (
+              <span style={styles.chatContainer} >
+                <MessagesArea user_id={this.state.user_id} toggleEmojis={this.toggleEmojis} showEmojis={this.state.showEmojis}
+                  conversation={findActiveConversation(conversations, activeConversation)}/>
+              </span>
+  )
             : null
         }
-
+      </div>
       </Fragment>
     )
   }
 }
 
 export default ConversationsList
+
+const styles={
+  li: {
+    display: 'flex',
+    marginTop: 5,
+    marginBottom: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    cursor: 'pointer',
+  },
+}
 
 const findActiveConversation = (conversations, activeConversation) => {
   return conversations.find(
@@ -167,8 +245,8 @@ const findActiveConversation = (conversations, activeConversation) => {
 const mapConversations = (conversations, handleClick) => {
   return conversations.map(conversation => {
     return (
-      <li key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
-        {conversation.title}
+      <li style={styles.li} key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
+        # {conversation.title}
       </li>
     )
   })
