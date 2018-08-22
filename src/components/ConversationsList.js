@@ -24,6 +24,13 @@ class ConversationsList extends React.Component {
     user_id: 1,
     snackbarMessage: "",
     showSnackbar: false,
+    showEmojis: false,
+  }
+
+  toggleEmojis = () => {
+    this.setState({
+      showEmojis: !this.state.showEmojis
+    })
   }
 
   componentDidMount() {
@@ -42,7 +49,10 @@ class ConversationsList extends React.Component {
 
   handleClick = (id) => {
     console.log("Active ID: ", id);
-    this.setState({ activeConversation: id})
+    this.setState({
+      activeConversation: id,
+      showEmojis: false,
+    })
   }
 
   handleOptionSelect = (e) => {
@@ -133,9 +143,12 @@ class ConversationsList extends React.Component {
         width: '70%',
         height: '100vh',
         display: 'inline',
-        //border: '1px solid #000',
+
+        border: '1px solid #000',
         overflowY: 'scroll',
         overflowX: 'scroll',
+        paddingBottom: '20px',
+
       },
       whosOnlineListContainer: {
         width: '25%',
@@ -216,7 +229,7 @@ class ConversationsList extends React.Component {
           activeConversation
             ? (
               <span style={styles.chatContainer} >
-                <MessagesArea user_id={this.state.user_id}
+                <MessagesArea user_id={this.state.user_id} toggleEmojis={this.toggleEmojis} showEmojis={this.state.showEmojis}
                   conversation={findActiveConversation(conversations, activeConversation)}/>
               </span>
               )

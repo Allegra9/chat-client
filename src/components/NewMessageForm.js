@@ -4,24 +4,6 @@ import { postMessage } from '../adapter/api';
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 
-// import Emoji from 'react-emoji-render';
-// import emojiDictionary from 'emoji-dictionary';
-// import EmojiPicker from 'emoji-picker-react';
-//
-// import JSEMOJI from 'emoji-js';
-//
-// // new instance
-// const jsemoji = new JSEMOJI();
-// // set the style to emojione (default - apple)
-// jsemoji.img_set = 'emojione';
-// // set the storage location for all emojis
-// jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-//
-// // some more settings...
-// jsemoji.supports_css = false;
-// jsemoji.allow_native = false;
-// jsemoji.replace_mode = 'unified';
-
 class NewMessageForm extends React.Component {
 
   state={
@@ -43,6 +25,7 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    console.log(this.state)
     postMessage(this.state)
     this.setState({ text: '' })
   }
@@ -60,7 +43,11 @@ class NewMessageForm extends React.Component {
   //jsemoji.replace_colons(`:${emojiName}:`);
 
   addEmoji = (e) => {
-    console.log(e)
+    console.log(e.unified)
+    let emojiPic = String.fromCodePoint(`0x${e.unified}`)
+      this.setState({
+        text: this.state.text + emojiPic
+      })
   }
 
   render () {
@@ -81,6 +68,30 @@ class NewMessageForm extends React.Component {
          flex: 1,
          fontSize: 16,
        },
+       getEmojiButton: {
+         cssFloat: "right",
+         border: 'none',
+         margin: 0,
+         cursor: 'pointer',
+       },
+       xButton: {
+         cssFloat: "right",
+         margin: 0,
+         cursor: 'pointer',
+         fontSize: '16px',
+         borderRadius: '50%',
+         background: 'none',
+         border: '1px solid #000',
+         outline: 'none',
+       },
+       emojiPicker: {
+        position: "absolute",
+        bottom: 10,
+        right: 0,
+        cssFloat: 'right',
+        marginLeft: "200px",
+
+      }
      }
 
     return (
@@ -91,12 +102,22 @@ class NewMessageForm extends React.Component {
             onChange={this.handleChange}
             placeholder="Type a message here then hit ENTER"
           />
+        </form>
 
-    
-
-
-
-      </form>
+        {
+          this.props.showEmojis ?
+          <span>
+            <span style={styles.emojiPicker} >
+              <Picker  onSelect={this.addEmoji} />
+            </span>
+            <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
+              {String.fromCodePoint(`0x1f60a`)}
+            </p>
+          </span> :
+            <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
+              {String.fromCodePoint(`0x1f60a`)}
+            </p>
+        }
       </div>
     )
   }
