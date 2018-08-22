@@ -31,7 +31,7 @@ const MessagesArea = ({ conversation: {id, title, messages }, user_id, toggleEmo
           {orderedMessages(messages)}
         </ul>
       </div>
-      <div style={{bottom:0, width:'100%', position:'fixed'}}>
+      <div style={{}}>
         <NewMessageForm conversation_id={id} user_id={user_id} toggleEmojis={toggleEmojis} showEmojis={showEmojis} />
         </div>
     </div>
@@ -39,6 +39,16 @@ const MessagesArea = ({ conversation: {id, title, messages }, user_id, toggleEmo
 }
 
 export default MessagesArea;
+
+const formatDate = (date) => {
+  console.log("PREFORMAT: ", date)
+  let d = new Date(date);
+  //console.log("after format: ", d.toString())
+  console.log("after format: ", d.toDateString())
+  console.log("after format: ", d.toLocaleTimeString().slice(0,5))
+
+  return `${d.toLocaleTimeString().slice(0,5)} ${d.toDateString()}` 
+}
 
 const orderedMessages = (messages) => {
   const sortedMessages = messages.sort(
@@ -54,7 +64,7 @@ const orderedMessages = (messages) => {
     return (
       <div>
         <span style={styles.senderUsername} key={message.id} >{message.user_name}: </span>
-          <span> {message.created_at} </span>
+          <span> {formatDate(message.created_at)} </span>
         <li style={styles.li}>{message.text}</li>
       </div>
     )

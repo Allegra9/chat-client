@@ -139,8 +139,9 @@ class ConversationsList extends React.Component {
         display: 'flex',
         flexDirection: 'column',
         paddingTop : '5em',
-        paddingBottom : '5em',
-        zIndex:'-10'
+        //paddingBottom : '5em',
+        zIndex:'-10',
+        //border: '1px solid black'
       },
       chatContainer: {
         paddingLeft: '20px',
@@ -149,10 +150,10 @@ class ConversationsList extends React.Component {
         height: '95vh',
         display: 'inline',
 
-        border: '1px solid #000',
+        //border: '1px solid #000',
         overflowY: 'scroll',
         overflowX: 'scroll',
-        paddingBottom: '20px',
+        //paddingBottom: '20px',
 
       },
       whosOnlineListContainer: {
@@ -179,7 +180,7 @@ class ConversationsList extends React.Component {
         width: '100%',
         display: 'flex',
         //flexDirection: 'column',
-        border: '1px solid grey',
+        //border: '1px solid grey',
       },
       ul: {
         listStyle: 'none',
