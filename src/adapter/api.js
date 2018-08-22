@@ -1,6 +1,6 @@
-export const API_WS_ROOT = 'ws://localhost:3000/cable';
+export const API_WS_ROOT = `ws://${window.location.hostname}:3000/cable`;
 
-const API_ROOT = 'http://localhost:3000';
+const API_ROOT = `http://${window.location.hostname}:3000`;
 const HEADERS = {
   'Content-Type': 'application/json',
    Accept: 'application/json',
