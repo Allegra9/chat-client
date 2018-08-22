@@ -3,8 +3,9 @@ import React, { Component, Fragment } from 'react';
 // import './App.css'; <-- commented out for styling
 import ConversationsList from './components/ConversationsList';
 
-import SignUpForm from './components/user/SignUpForm'
 import SignIn from './components/user/Signin'
+import SignUp from './components/user/SignUp'
+
 // import LoginForm from './components/user/LoginForm'
 import NavBar from './components/NavBar'
 
@@ -34,7 +35,8 @@ const styles = theme => ({
 class App extends Component {
 
   state = {
-    active_user : undefined
+    active_user : undefined,
+    signup: false
   }
 
   handleLogin = (response) => { //passed as props to SignIn
@@ -64,6 +66,12 @@ class App extends Component {
       })
   }
 
+  toggleSignUp = () => {
+    this.setState({
+      signup: !this.state.signup
+    })
+  }
+
   handleLogout = () => {
     this.setState({
       active_user : undefined
@@ -82,9 +90,11 @@ class App extends Component {
           </Fragment>
             :
             <Fragment>
-              {//<SignUpForm handleLogin={this.handleLogin}/>
+              {
+                this.state.signup ?
+                   <SignUp handleLogin={this.handleLogin} toggleSignUp={this.toggleSignUp} /> : <SignIn handleLogin={this.handleLogin} toggleSignUp={this.toggleSignUp} />
+
               }
-              <SignIn handleLogin={this.handleLogin} />
             </Fragment>
         }
 

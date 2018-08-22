@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import {loginUser} from '../../adapter/api'
+import {createUser} from '../../adapter/api'
 
 const styles = theme => ({
   layout: {
@@ -47,12 +47,14 @@ class SignIn extends React.Component{
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    name: '',
+
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    loginUser(this.state)
+    createUser(this.state)
       .then(resp => {
         if(resp.error) {
           console.log("Response", resp);
@@ -79,11 +81,15 @@ class SignIn extends React.Component{
             <Avatar className={classes.avatar}>
               <LockIcon />
             </Avatar>
-            <Typography variant="headline">Sign in</Typography>
+            <Typography variant="headline">Create a new account</Typography>
             <form onSubmit={(e) => this.handleSubmit(e)} className={classes.form}>
               <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="name">Name</InputLabel>
+                <Input id="name" type="text" name="name" autoComplete="name" autoFocus onChange={this.handleChange}/>
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="username">Username</InputLabel>
-                <Input id="username" type="text" name="username" autoComplete="username" autoFocus onChange={this.handleChange}/>
+                <Input id="username" type="text" name="username" autoComplete="username" onChange={this.handleChange}/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -102,15 +108,12 @@ class SignIn extends React.Component{
                 color="primary"
                 className={classes.submit}
               >
-                Sign in
+                Sign Up
               </Button>
-
               <FormControl margin="normal" fullWidth>
-                  <p> Dont have an account? <a href='#' onClick={this.props.toggleSignUp}> Sign up here</a> </p>
+                  <p> Already have an account? <a href='#' onClick={this.props.toggleSignUp}> Login here</a> </p>
               </FormControl>
             </form>
-
-
           </Paper>
         </main>
       </React.Fragment>
