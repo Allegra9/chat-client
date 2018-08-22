@@ -2,7 +2,7 @@ import React from 'react'
 
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 
 const NavBar = (props) => {
 
@@ -10,8 +10,12 @@ const NavBar = (props) => {
     navBar: {
       //border: '1px solid #000',
       //borderRadius: '5px',
+      width:'100%',
       margin: 0,
-      //backgroundColor: 'grey',
+      position:'fixed',
+      top: 0,
+      backgroundColor: 'white',
+      borderBottom: '2px solid black'
     },
     h2: {
       textAlign: 'center',
@@ -24,14 +28,12 @@ const NavBar = (props) => {
     button: {   //fix the log Out button
       cursor: 'pointer',
       padding: '10px',
-      border: '1px solid #000',
       float: 'right',
       marginRight: '20px',
       display: 'inline-block',
       marginTop: '20px',
       borderRadius: '5px',
-      fontSize: '12px',
-      backgroundColor: 'red',
+      fontSize: '12px'
     },
   }
   return (
@@ -39,9 +41,9 @@ const NavBar = (props) => {
       <h2 style={styles.h2} >
           Hi {props.active_user.name}!
       </h2>
-      <span style={styles.button} onClick={props.handleLogout}>
-        logout
-      </span>
+      <Button variant="outlined" style={styles.button} onClick={props.handleLogout}>
+        Logout
+      </Button>
     </div>
   )
 }

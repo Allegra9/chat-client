@@ -6,6 +6,12 @@ import NewConversationForm from './NewConversationForm';
 import MessagesArea from './MessagesArea';
 import Cable from './Cable';
 
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+
+import SimpleSnackbar from './SimpleSnackbar'
+
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
 
@@ -16,6 +22,8 @@ class ConversationsList extends React.Component {
     allConversations: [],
     activeConversation: null,
     user_id: 1,
+    snackbarMessage: "",
+    showSnackbar: false,
   }
 
   componentDidMount() {
@@ -68,7 +76,6 @@ class ConversationsList extends React.Component {
     const conversations = [...this.state.conversations]
 
     switch(response.type) {
-
       case "ADDING_USER":
         const new_message = {
           text: `${response.new_user.name} has joined the channel`,
@@ -76,6 +83,10 @@ class ConversationsList extends React.Component {
           user_name: "CHANNEL BOT",
           created_at: Date.now()
         }
+        this.setState({
+          snackbarMessage: `${response.new_user.name} has joined the channel ${response.conversation.title}`,
+          showSnackbar : true
+        })
         const active_conversation = conversations.find(
           conversation => {
             if(parseInt(conversation.id) === parseInt(response.conversation.id)) {
@@ -102,12 +113,19 @@ class ConversationsList extends React.Component {
     }
   }
 
+  toggleSnackbar = () => {
+    this.setState({
+      showSnackbar: !this.state.showSnackbar
+    })
+  }
+
   render = () => {
     const styles = {
       container: {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        paddingTop : '5em'
       },
       chatContainer: {
         paddingLeft: '20px',
@@ -156,7 +174,7 @@ class ConversationsList extends React.Component {
 
     const { conversations, activeConversation } = this.state
     return (
-      <Fragment style={styles.container}>
+      <div style={styles.container}>
         <ActionCable channel={{ channel: 'ConversationsChannel',
           conversation_id: this.state.activeConversation }}
           onReceived={this.handleReceivedConversation}
@@ -171,7 +189,8 @@ class ConversationsList extends React.Component {
       <div style={styles.chatListContainer} >
         <span style={styles.whosOnlineListContainer} >
           <p>Search for channels:</p>
-            <select onChange={this.handleOptionSelect} >
+          <FormControl style={{minWidth: '120px'}}>
+            <Select native onChange={this.handleOptionSelect} >
               {
                 this.state.allConversations.map(conversation => {
                 return <option value={conversation.id} id={conversation.id}>
@@ -179,7 +198,8 @@ class ConversationsList extends React.Component {
                        </option>
               })
               }
-            </select>
+            </Select>
+          </FormControl>
 
         <div style={styles.channelsSection}>
           <p>Channels:</p>
@@ -192,8 +212,6 @@ class ConversationsList extends React.Component {
 
           <NewConversationForm userId={this.state.user_id}/>
         </span>
-
-
         {
           activeConversation
             ? (
@@ -201,11 +219,12 @@ class ConversationsList extends React.Component {
                 <MessagesArea user_id={this.state.user_id}
                   conversation={findActiveConversation(conversations, activeConversation)}/>
               </span>
-  )
+              )
             : null
         }
       </div>
-      </Fragment>
+      <SimpleSnackbar message={this.state.snackbarMessage} open={this.state.showSnackbar} toggleSnackbar={this.toggleSnackbar} />
+    </div>
     )
   }
 }
@@ -217,7 +236,7 @@ const styles={
     display: 'flex',
     marginTop: 5,
     marginBottom: 5,
-    paddingTop: 2,
+    paddingTop: '1em',
     paddingBottom: 2,
     cursor: 'pointer',
   },
@@ -235,6 +254,8 @@ const mapConversations = (conversations, handleClick) => {
       <li style={styles.li} key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
         # {conversation.title}
       </li>
+
+
     )
   })
 }

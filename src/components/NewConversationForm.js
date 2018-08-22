@@ -1,6 +1,11 @@
 import React from 'react';
 import { createConversation } from '../adapter/api';
 
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+
+import TextField from '@material-ui/core/TextField';
+
 class NewConversationForm extends React.Component {
 
   state={
@@ -53,7 +58,11 @@ class NewConversationForm extends React.Component {
               onChange={this.handleChange}
               placeholder="Create a channel"
             />
-          <button style={styles.button} >+</button>
+
+            <Button mini variant="fab" color="primary" aria-label="Add" className="button">
+                <AddIcon />
+            </Button>
+
 
         </form>
       </div>
