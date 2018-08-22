@@ -20,11 +20,15 @@ import {getCurrentUser} from './adapter/api'
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    minHeight: '80vh',
+    maxHeight: '80vh',
+    overflow:"hidden"
   },
-  paper: {
-    height: "95vh",
-    width: "95vw"
+  childGrid: {
+    minHeight: '80vh',
+    maxHeight: '80vh',
+    overflow:"hidden"
   },
   control: {
     padding: theme.spacing.unit * 2
@@ -77,10 +81,13 @@ class App extends Component {
         {
           this.state.active_user ?
           <Fragment >
-            <Grid container="container" className="root" justify="center" alignItems="center" direction="row">
-              <NavBar active_user={this.state.active_user} handleLogout={this.handleLogout}/>
-              <ConversationsList activeUser={this.state.active_user}/>
-
+            <Grid container="container" className="root" justify="center" alignItems="center" direction="column">
+              <Grid container className="childGrid"  >
+                <NavBar active_user={this.state.active_user} handleLogout={this.handleLogout}/>
+              </Grid>
+              <Grid container className="childGrid" >
+                <ConversationsList activeUser={this.state.active_user}/>
+              </Grid>
             </Grid>
           </Fragment>
             :

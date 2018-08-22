@@ -9,6 +9,22 @@ import Cable from './Cable';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+
+const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+});
+
 class ConversationsList extends React.Component {
 
   state={
@@ -104,6 +120,8 @@ class ConversationsList extends React.Component {
   }
 
   render = () => {
+    const {classes} = this.props
+    console.log(classes)
     const { conversations, activeConversation } = this.state
     return (
       <Fragment>
@@ -124,19 +142,21 @@ class ConversationsList extends React.Component {
           <Paper className="paper">
         <h2>Channels:</h2>
         <p>Search for channels:</p>
-          <select onChange={this.handleOptionSelect} >
+         <FormControl className="formControl">
+          <Select onChange={this.handleOptionSelect} >
             {
               this.state.allConversations.map(conversation => {
-              return <option value={conversation.id} id={conversation.id}> {conversation.title} </option>
+              return <MenuItem value={conversation.id} id={conversation.id}> {conversation.title} </MenuItem>
             })
             }
-          </select>
+          </Select>
+        </FormControl>
 
-        <ul>
+        <List component="nav">
           {
             mapConversations(conversations, this.handleClick)
           }
-        </ul>
+        </List>
         <NewConversationForm userId={this.state.user_id}/>
           </Paper>
         </Grid>
@@ -167,9 +187,9 @@ const findActiveConversation = (conversations, activeConversation) => {
 const mapConversations = (conversations, handleClick) => {
   return conversations.map(conversation => {
     return (
-      <li key={Math.random().toString(36).substring(7)} onClick={() => handleClick(conversation.id)} >
-        {conversation.title}
-      </li>
+        <ListItem button>
+          <ListItemText primary={conversation.title} onClick={() => handleClick(conversation.id)}/>
+        </ListItem>
     )
   })
 }
