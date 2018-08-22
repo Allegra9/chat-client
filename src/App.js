@@ -93,7 +93,6 @@ class App extends Component {
               {
                 this.state.signup ?
                    <SignUp handleLogin={this.handleLogin} toggleSignUp={this.toggleSignUp} /> : <SignIn handleLogin={this.handleLogin} toggleSignUp={this.toggleSignUp} />
-
               }
             </Fragment>
         }

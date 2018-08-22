@@ -53,17 +53,13 @@ class NewConversationForm extends React.Component {
     return (
       <div style={styles.container} className="newConversationForm">
         <form onSubmit={this.handleSubmit} >
-
             <input style={styles.input} type="text" value={this.state.title}
               onChange={this.handleChange}
               placeholder="Create a channel"
             />
-
-            <Button mini variant="fab" color="primary" aria-label="Add" className="button">
+          <Button onClick={this.handleSubmit} mini variant="fab" color="primary" aria-label="Add" className="button">
                 <AddIcon />
-            </Button>
-
-
+          </Button>
         </form>
       </div>
     )

@@ -97,7 +97,6 @@ class NewMessageForm extends React.Component {
     return (
       <div style={styles.container} className="newMessageForm">
         <form style={styles.form} onSubmit={this.handleSubmit} >
-
           <input style={styles.input} type="text" value={this.state.text}
             onChange={this.handleChange}
             placeholder="Type a message here then hit ENTER"
