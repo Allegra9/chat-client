@@ -1,6 +1,6 @@
 This is a chat app's front-end, run the backend first, then run:
 ```npm install```
-```npm start```
+```npm start```     => localhost:3001     (Ctrl + C to stop)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
