@@ -7,6 +7,8 @@ Run the backend first, then for the front-end run:
 
 Demo video: https://www.youtube.com/watch?v=O_Cx57jF2so&index=3&list=UUZage3esBsP8jJGdT1k2n5A
 
+Mod4 project built w @HugoSanchez @developerjigr
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
