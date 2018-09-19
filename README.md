@@ -1,6 +1,11 @@
-This is a chat app's front-end, run the backend first, then run:
+"WeChat” Slack-inspired messaging app. 
+Integrated ActionCable web socket for a realtime bi-directional communication channel between a client and a server. Implemented user authentication and authorisation using JSON Web Token (JWT). Used Material UI for styling.
+
+Run the backend first, then for the front-end run:
 ```npm install```
 ```npm start```     => localhost:3001     (Ctrl + C to stop)
+
+Demo video: https://www.youtube.com/watch?v=O_Cx57jF2so&index=3&list=UUZage3esBsP8jJGdT1k2n5A
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
