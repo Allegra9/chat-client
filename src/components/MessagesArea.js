@@ -6,7 +6,6 @@ const styles = {
          overflowY: 'scroll',
          flex: 1,
        },
-
        ul: {
          listStyle: 'none',
        },
@@ -31,9 +30,14 @@ const MessagesArea = ({ conversation: {id, title, messages }, user_id, toggleEmo
           {orderedMessages(messages)}
         </ul>
       </div>
-      <div style={{}}>
-        <NewMessageForm conversation_id={id} user_id={user_id} toggleEmojis={toggleEmojis} showEmojis={showEmojis} />
-        </div>
+      <div>
+        <NewMessageForm
+          conversation_id={id}
+          user_id={user_id}
+          toggleEmojis={toggleEmojis}
+          showEmojis={showEmojis}
+        />
+      </div>
     </div>
   )
 }
@@ -47,7 +51,7 @@ const formatDate = (date) => {
   console.log("after format: ", d.toDateString())
   console.log("after format: ", d.toLocaleTimeString().slice(0,5))
 
-  return `${d.toLocaleTimeString().slice(0,5)} ${d.toDateString()}` 
+  return `${d.toLocaleTimeString().slice(0,5)} ${d.toDateString()}`
 }
 
 const orderedMessages = (messages) => {

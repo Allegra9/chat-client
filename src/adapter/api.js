@@ -3,7 +3,7 @@ export const API_WS_ROOT = `ws://${window.location.hostname}:3000/cable`;
 const API_ROOT = `http://${window.location.hostname}:3000`;   //can connect on IP address
 const HEADERS = {
   'Content-Type': 'application/json',
-   Accept: 'application/json',
+   'Accept': 'application/json',
 };
 
 const getToken = () => localStorage.getItem('token');
@@ -13,8 +13,8 @@ export const getConversations = (id, token) => {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': getToken()
+      'Accept': 'application/json',
+      'Authorization': getToken()
     }
   })
     .then(res => res.json())
@@ -30,8 +30,8 @@ export const subscribeUser = (conversation_id, user_id, token) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': getToken()
+      'Accept': 'application/json',
+      'Authorization': getToken()
     },
     body: JSON.stringify({user_id: user_id, conversation_id: conversation_id})
   }).then(resp => resp.json())
@@ -42,8 +42,8 @@ export const postMessage = (messageObj, token) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': getToken()
+      'Accept': 'application/json',
+      'Authorization': getToken()
     },
     body: JSON.stringify(messageObj)
   })
@@ -72,8 +72,8 @@ export const getCurrentUser = (token) => {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': getToken()
+      'Accept': 'application/json',
+      'Authorization': getToken()
     },
   }).then(res => res.json())
 }
@@ -83,8 +83,8 @@ export const createConversation = (id, conversationObj, token) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': getToken()
+      'Accept': 'application/json',
+      'Authorization': getToken()
     },
     body: JSON.stringify(conversationObj)
   })

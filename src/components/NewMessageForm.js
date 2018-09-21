@@ -32,7 +32,10 @@ class NewMessageForm extends React.Component {
 
   addEmoji = (e) => {
     console.log(e)
+    // that should run only if the emoji has a UNICODE codepoint
     let emojiPic = String.fromCodePoint(`0x${e.unified}`)
+    //smth like this for custom emojis:
+    //let emojiPic = `<span> <img src="https://assets-cdn.github.com/images/icons/emoji/octocat.png?v7" /> </span>`
       this.setState({
         text: this.state.text + emojiPic
       })
@@ -82,6 +85,20 @@ class NewMessageForm extends React.Component {
       }
      }
 
+     const customEmojis = [
+       {
+         name: 'Octocat',
+         short_names: ['octocat'],
+         text: '',
+         emoticons: [],
+         keywords: ['github'],
+         imageUrl: 'https://assets-cdn.github.com/images/icons/emoji/octocat.png?v7',
+       },
+     ]
+
+     // content editable="true"    like a div with this that takes in a <span> with custom
+     //emoji  img tag , that's how it would happen ....
+
     return (
       <div style={styles.container} className="newMessageForm">
         <form style={styles.form} onSubmit={this.handleSubmit} >
@@ -95,7 +112,7 @@ class NewMessageForm extends React.Component {
           this.props.showEmojis ?
           <span>
             <span style={styles.emojiPicker} >
-              <Picker onSelect={this.addEmoji} />
+              <Picker onSelect={this.addEmoji} custom={customEmojis} />
             </span>
             <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
               {String.fromCodePoint(0x1f60a)}
