@@ -1,4 +1,4 @@
-## "WeChat” Slack-inspired messaging app. 
+## "WeChat” Slack-inspired messaging app 
 Integrated ActionCable web socket for a realtime bi-directional communication channel between a client and a server. Implemented user authentication and authorisation using JSON Web Token (JWT). Used Material UI for styling.
 
 ## How to run:
@@ -12,6 +12,7 @@ https://www.youtube.com/watch?v=O_Cx57jF2so&index=3&list=UUZage3esBsP8jJGdT1k2n5
 ## Team:
 Mod4 project built with @HugoSanchez @developerjigr
 
+***************************************************
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
