@@ -38,7 +38,7 @@ class ConversationsList extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user_id: this.props.activeUser.id
+      user_id: this.props.active_user.id
     }, () => {
       getConversations(this.state.user_id).then(conversations => {
         this.setState({conversations: conversations})
@@ -212,9 +212,11 @@ class ConversationsList extends React.Component {
             <Select native style={{color:'white'}} onChange={this.handleOptionSelect} >
               {
                 this.state.allConversations.map(conversation => {
-                return <option value={conversation.id} id={conversation.id}>
-                        {conversation.title}
-                       </option>
+                return (
+                    <option value={conversation.id} id={conversation.id}>
+                      {conversation.title}
+                    </option>
+                  )
               })
               }
             </Select>

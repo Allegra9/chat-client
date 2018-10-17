@@ -49,20 +49,19 @@ class SignIn extends React.Component{
     username: '',
     password: '',
     name: '',
-
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
     createUser(this.state)
-      .then(resp => {
-        if(resp.error) {
-          console.log("Response", resp);
-          console.log(resp.error);
-        } else {
-          this.props.handleLogin(resp)
-        }
-      })
+    .then(resp => {
+      if(resp.error) {
+        console.log("Response", resp);
+        console.log(resp.error);
+      }else {
+        this.props.handleLogin(resp)
+      }
+    })
   }
 
   handleChange = (event) => {
@@ -72,7 +71,9 @@ class SignIn extends React.Component{
   }
 
   render(){
-    const { classes } = this.props;
+
+    const { classes } = this.props
+
     return (
       <React.Fragment>
         <CssBaseline />
@@ -117,9 +118,9 @@ class SignIn extends React.Component{
           </Paper>
         </main>
       </React.Fragment>
-    );
+    )
   }
-}//class
+}
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,

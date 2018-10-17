@@ -83,16 +83,30 @@ class App extends Component {
     return (
       <div className="App">
         {
-          this.state.active_user ?
+          this.state.active_user
+          ?
           <Fragment>
-              <NavBar active_user={this.state.active_user} handleLogout={this.handleLogout}/>
-              <ConversationsList activeUser={this.state.active_user}/>
+              <NavBar
+                active_user={this.state.active_user}
+                handleLogout={this.handleLogout}
+              />
+              <ConversationsList
+                activeUser={this.state.active_user}
+              />
           </Fragment>
             :
             <Fragment>
               {
-                this.state.signup ?
-                   <SignUp handleLogin={this.handleLogin} toggleSignUp={this.toggleSignUp} /> : <SignIn handleLogin={this.handleLogin} toggleSignUp={this.toggleSignUp} />
+                this.state.signup
+                ?
+                   <SignUp
+                     handleLogin={this.handleLogin}
+                     toggleSignUp={this.toggleSignUp}
+                   />
+                 : <SignIn
+                    handleLogin={this.handleLogin}
+                    toggleSignUp={this.toggleSignUp}
+                   />
               }
             </Fragment>
         }

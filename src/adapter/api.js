@@ -3,8 +3,8 @@ export const API_WS_ROOT = `ws://${window.location.hostname}:3000/cable`;
 const API_ROOT = `http://${window.location.hostname}:3000`;   //can connect on IP address
 const HEADERS = {
   'Content-Type': 'application/json',
-   'Accept': 'application/json',
-};
+  'Accept': 'application/json',
+}
 
 const getToken = () => localStorage.getItem('token');
 
@@ -16,8 +16,7 @@ export const getConversations = (id, token) => {
       'Accept': 'application/json',
       'Authorization': getToken()
     }
-  })
-    .then(res => res.json())
+  }).then(res => res.json())
 }
 
 export const getAllConversations = () => {
@@ -54,8 +53,8 @@ export const loginUser = (userLoginObj) => {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(userLoginObj)
-    })
-    .then(res => res.json())
+  })
+  .then(res => res.json())
 }
 
 export const createUser = (userSignupObj) => {
@@ -63,8 +62,8 @@ export const createUser = (userSignupObj) => {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(userSignupObj)
-    })
-    .then(res => res.json())
+  })
+  .then(res => res.json())
 }
 
 export const getCurrentUser = (token) => {
