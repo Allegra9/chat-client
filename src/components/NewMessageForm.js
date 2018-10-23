@@ -20,6 +20,7 @@ class NewMessageForm extends React.Component {
   }
 
   closeMenu = (e) => {
+    console.log(this.emojiPicker)
     if (this.emojiPicker !== null && !this.emojiPicker.contains(e.target)) {
       this.setState({
         showEmojis: false

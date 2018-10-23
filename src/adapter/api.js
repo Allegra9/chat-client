@@ -37,6 +37,7 @@ export const subscribeUser = (conversation_id, user_id, token) => {
 }
 
 export const postMessage = (messageObj, token) => {
+  console.log('API POST message: ', messageObj)
   return fetch(`${API_ROOT}/messages`, {
     method: 'POST',
     headers: {
