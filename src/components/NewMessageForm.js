@@ -31,14 +31,23 @@ class NewMessageForm extends React.Component {
   }
 
   addEmoji = (e) => {
-    console.log(e)
-    // that should run only if the emoji has a UNICODE codepoint
-    let emojiPic = String.fromCodePoint(`0x${e.unified}`)
-    //smth like this for custom emojis:
-    //let emojiPic = `<span> <img src="https://assets-cdn.github.com/images/icons/emoji/octocat.png?v7" /> </span>`
+    //console.log(e.unified)
+    if (e.unified.length <= 5){
+      let emojiPic = String.fromCodePoint(`0x${e.unified}`)
       this.setState({
         text: this.state.text + emojiPic
       })
+    }else {
+      let sym = e.unified.split('-')
+      let codesArray = []
+      sym.forEach(el => codesArray.push('0x' + el))
+      //console.log(codesArray.length)
+      //console.log(codesArray)  // ["0x1f3f3", "0xfe0f"]
+      let emojiPic = String.fromCodePoint(...codesArray)
+      this.setState({
+        text: this.state.text + emojiPic
+      })
+    }
   }
 
   render () {

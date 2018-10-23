@@ -45,11 +45,11 @@ const MessagesArea = ({ conversation: {id, title, messages }, user_id, toggleEmo
 export default MessagesArea;
 
 const formatDate = (date) => {
-  console.log("PREFORMAT: ", date)
+  // console.log("PREFORMAT: ", date)
   let d = new Date(date);
   //console.log("after format: ", d.toString())
-  console.log("after format: ", d.toDateString())
-  console.log("after format: ", d.toLocaleTimeString().slice(0,5))
+  // console.log("after format: ", d.toDateString())
+  // console.log("after format: ", d.toLocaleTimeString().slice(0,5))
 
   return `${d.toLocaleTimeString().slice(0,5)} ${d.toDateString()}`
 }
