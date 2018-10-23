@@ -27,13 +27,6 @@ class ConversationsList extends React.Component {
     user_id: 1,
     snackbarMessage: "",
     showSnackbar: false,
-    showEmojis: false,
-  }
-
-  toggleEmojis = () => {
-    this.setState({
-      showEmojis: !this.state.showEmojis
-    })
   }
 
   componentDidMount() {

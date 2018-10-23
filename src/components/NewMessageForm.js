@@ -1,5 +1,5 @@
-import React from 'react';
-import { postMessage } from '../adapter/api';
+import React from 'react'
+import { postMessage } from '../adapter/api'
 
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
@@ -10,6 +10,21 @@ class NewMessageForm extends React.Component {
     text: '',
     conversation_id: this.props.conversation_id,
     user_id: this.props.user_id,
+    showEmojis: false,
+  }
+
+  showEmojis = (e) => {
+    this.setState({
+      showEmojis: true
+    }, () => document.addEventListener('click', this.closeMenu))
+  }
+
+  closeMenu = (e) => {
+    if (this.emojiPicker !== null && !this.emojiPicker.contains(e.target)) {
+      this.setState({
+        showEmojis: false
+      }, () => document.removeEventListener('click', this.closeMenu))
+    }
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -25,7 +40,7 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state)
+    // console.log(this.state)
     postMessage(this.state)
     this.setState({ text: '' })
   }
@@ -61,28 +76,17 @@ class NewMessageForm extends React.Component {
          fontSize: 16,
        },
        getEmojiButton: {
-         cssFloat: "right",
+         cssFloat: 'right',
          border: 'none',
          margin: 0,
          cursor: 'pointer',
        },
-       xButton: {
-         cssFloat: "right",
-         margin: 0,
-         cursor: 'pointer',
-         fontSize: '16px',
-         borderRadius: '50%',
-         background: 'none',
-         border: '1px solid #000',
-         outline: 'none',
-       },
        emojiPicker: {
-        position: "absolute",
+        position: 'absolute',
         bottom: 10,
         right: 0,
         cssFloat: 'right',
-        marginLeft: "200px",
-
+        marginLeft: '200px',
       }
      }
 
@@ -106,17 +110,12 @@ class NewMessageForm extends React.Component {
           />
         </form>
         {
-          this.props.showEmojis ?
-            <span>
-              <span style={styles.emojiPicker} >
-                <Picker onSelect={this.addEmoji} />
-              </span>
-              <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
-                {String.fromCodePoint(0x1f60a)}
-              </p>
+          this.state.showEmojis ?
+            <span style={styles.emojiPicker} ref={el => (this.emojiPicker = el)}>
+              <Picker onSelect={this.addEmoji} />
             </span>
           :
-            <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
+            <p style={styles.getEmojiButton} onClick={this.showEmojis} >
               {String.fromCodePoint(0x1f60a)}
             </p>
         }
@@ -125,4 +124,4 @@ class NewMessageForm extends React.Component {
   }
 }
 
-export default NewMessageForm;
+export default NewMessageForm
