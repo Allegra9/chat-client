@@ -1,4 +1,4 @@
-## "WeChat” Slack-inspired messaging app 
+## "WeChat” Slack-inspired messaging app
 Integrated ActionCable web socket for a realtime bi-directional communication channel between a client and a server. Implemented user authentication and authorisation using JSON Web Token (JWT). Used Material UI for styling.
 
 ## How to run:
@@ -6,8 +6,11 @@ Run the backend first (see the chat-server repo), then for the front-end run:
 ```npm install```
 ```npm start```     => localhost:3001     (Ctrl + C to stop)
 
-## Demo video: 
+## Demo video:
 https://www.youtube.com/watch?v=O_Cx57jF2so&index=3&list=UUZage3esBsP8jJGdT1k2n5A
+
+## Blog post on adding Emoji Picker:
+https://medium.com/@allegra9/add-emoji-picker-to-your-react-chat-app-30d8cbe8d9a6
 
 ## Team:
 Mod4 project built with @HugoSanchez @developerjigr
@@ -316,7 +319,7 @@ In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and s
 
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
-The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine. 
+The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine.
 
 ## Formatting Code Automatically
 
@@ -2005,7 +2008,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+It will get copied to the `build` folder when you run `npm run build`.
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
@@ -2445,7 +2448,7 @@ To resolve this:
 1. Open an issue on the dependency's issue tracker and ask that the package be published pre-compiled.
   * Note: Create React App can consume both CommonJS and ES modules. For Node.js compatibility, it is recommended that the main entry point is CommonJS. However, they can optionally provide an ES module entry point with the `module` field in `package.json`. Note that **even if a library provides an ES Modules version, it should still precompile other ES6 features to ES5 if it intends to support older browsers**.
 
-2. Fork the package and publish a corrected version yourself. 
+2. Fork the package and publish a corrected version yourself.
 
 3. If the dependency is small enough, copy it to your `src/` folder and treat it as application code.
 
