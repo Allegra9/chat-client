@@ -31,23 +31,15 @@ class NewMessageForm extends React.Component {
   }
 
   addEmoji = (e) => {
-    //console.log(e.unified)
-    if (e.unified.length <= 5){
-      let emojiPic = String.fromCodePoint(`0x${e.unified}`)
-      this.setState({
-        text: this.state.text + emojiPic
-      })
-    }else {
-      let sym = e.unified.split('-')
-      let codesArray = []
-      sym.forEach(el => codesArray.push('0x' + el))
-      //console.log(codesArray.length)
+    console.log(e.unified)
+    let sym = e.unified.split('-')
+    let codesArray = []
+    sym.forEach(el => codesArray.push('0x' + el))
       //console.log(codesArray)  // ["0x1f3f3", "0xfe0f"]
-      let emojiPic = String.fromCodePoint(...codesArray)
-      this.setState({
-        text: this.state.text + emojiPic
-      })
-    }
+    let emojiPic = String.fromCodePoint(...codesArray) //("0x1f3f3", "0xfe0f")
+    this.setState({
+      text: this.state.text + emojiPic
+    })
   }
 
   render () {
@@ -105,9 +97,6 @@ class NewMessageForm extends React.Component {
        },
      ]
 
-     // content editable="true"    like a div with this that takes in a <span> with custom
-     //emoji  img tag , that's how it would happen ....
-
     return (
       <div style={styles.container} className="newMessageForm">
         <form style={styles.form} onSubmit={this.handleSubmit} >
@@ -116,17 +105,17 @@ class NewMessageForm extends React.Component {
             placeholder="Type a message here then hit ENTER"
           />
         </form>
-
         {
           this.props.showEmojis ?
-          <span>
-            <span style={styles.emojiPicker} >
-              <Picker onSelect={this.addEmoji} custom={customEmojis} />
+            <span>
+              <span style={styles.emojiPicker} >
+                <Picker onSelect={this.addEmoji} />
+              </span>
+              <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
+                {String.fromCodePoint(0x1f60a)}
+              </p>
             </span>
-            <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
-              {String.fromCodePoint(0x1f60a)}
-            </p>
-          </span> :
+          :
             <p style={styles.getEmojiButton} onClick={this.props.toggleEmojis} >
               {String.fromCodePoint(0x1f60a)}
             </p>
