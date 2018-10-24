@@ -70,7 +70,7 @@ class SignIn extends React.Component{
     })
   }
 
-  render(){
+  render() {
 
     const { classes } = this.props
 
@@ -112,7 +112,7 @@ class SignIn extends React.Component{
                 Sign Up
               </Button>
               <FormControl margin="normal" fullWidth>
-                  <p> Already have an account? <a href='#' onClick={this.props.toggleSignUp}> Login here</a> </p>
+                  <p> Already have an account? <a href='' onClick={this.props.toggleSignUp}> Login here</a> </p>
               </FormControl>
             </form>
           </Paper>

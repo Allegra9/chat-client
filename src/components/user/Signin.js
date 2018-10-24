@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import {loginUser} from '../../adapter/api'
+import { loginUser } from '../../adapter/api'
 
 const styles = theme => ({
   layout: {
@@ -106,7 +106,7 @@ class SignIn extends React.Component{
               </Button>
 
               <FormControl margin="normal" fullWidth>
-                  <p> Dont have an account? <a href='#' onClick={this.props.toggleSignUp}> Sign up here</a> </p>
+                  <p> Dont have an account? <a href='' onClick={this.props.toggleSignUp}> Sign up here</a> </p>
               </FormControl>
             </form>
 
@@ -114,9 +114,9 @@ class SignIn extends React.Component{
           </Paper>
         </main>
       </React.Fragment>
-    );
+    )
   }
-}//class
+}
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,

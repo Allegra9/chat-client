@@ -1,21 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react'
 
-// import './App.css'; <-- commented out for styling
-import ConversationsList from './components/ConversationsList';
-
+import ConversationsList from './components/ConversationsList'
 import SignIn from './components/user/Signin'
 import SignUp from './components/user/SignUp'
-
-// import LoginForm from './components/user/LoginForm'
 import NavBar from './components/NavBar'
 
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import theme from './theme';
-
-import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from '@material-ui/core/Button';
+import { withStyles } from "@material-ui/core/styles"
 
 import {getCurrentUser} from './adapter/api'
 
@@ -30,7 +20,7 @@ const styles = theme => ({
   control: {
     padding: theme.spacing.unit * 2
   }
-});
+})
 
 class App extends Component {
 
@@ -112,8 +102,8 @@ class App extends Component {
         }
 
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(App)
