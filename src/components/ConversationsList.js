@@ -30,6 +30,7 @@ class ConversationsList extends React.Component {
       user_id: this.props.activeUser.id
     }, () => {
       getConversations(this.state.user_id).then(conversations => {
+        console.log("CONV: ", conversations)
         this.setState({conversations: conversations})
     })
       getAllConversations()
@@ -63,32 +64,35 @@ class ConversationsList extends React.Component {
     }
   }
 
-  handleReceivedConversation = (conversation) => {
+  handleReceivedConversation = (res) => {
+    const { conversation } = res
     this.setState({
       conversations: [...this.state.conversations, conversation],
       allConversations: [...this.state.allConversations, conversation]
     })
   }
 
-  handleReceivedMessage = (message) => {
+  handleReceivedMessage = (res) => {
 
+    const { message } = res
     const conversations = [...this.state.conversations]
+    console.log("in handleRec :", conversations)
 
-    switch(message.type) {
+    switch(res.type) {
       case "ADDING_USER":
         const new_message = {
-          text: `${message.new_user.name} has joined the channel`,
+          text: `${res.new_user.name} has joined the channel`,
           id: "ADMIN",
           user_name: "CHANNEL BOT",
           created_at: Date.now()
         }
         this.setState({
-          snackbarMessage: `${message.new_user.name} has joined the channel ${message.conversation.title}`,
+          snackbarMessage: `${res.new_user.name} has joined the channel ${res.conversation.title}`,
           showSnackbar : true
         })
         const active_conversation = conversations.find(
           conversation => {
-            if(parseInt(conversation.id) === parseInt(message.conversation.id)) {
+            if(parseInt(conversation.id) === parseInt(res.conversation.id)) {
               return true
             }
           }
@@ -105,6 +109,7 @@ class ConversationsList extends React.Component {
             }
           }
         )
+        console.log("110: ", conversation)
         conversation.messages = [...conversation.messages, message]
         this.setState({ conversations })
       break
