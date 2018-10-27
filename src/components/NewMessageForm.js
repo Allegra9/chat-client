@@ -1,6 +1,6 @@
 import React from 'react'
 import { postMessage } from '../adapter/api'
-import Validate from './Validations'
+import validate from './validations'
 
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
@@ -38,8 +38,8 @@ class NewMessageForm extends React.Component {
   }
 
   handleChange = (e) => {
-    let validation = Validate(e.target.value)
-    console.log(validation)
+    let validation = validate(e.target.value)
+    //console.log(validation)
     this.setState({
       text: e.target.value,
       errors: validation
@@ -48,10 +48,8 @@ class NewMessageForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log("err: ", this.state.errors)
-    let validation = Validate(this.state.text)
-    console.log(validation)
-    // console.log(this.state)
+    let validation = validate(this.state.text)
+    //console.log(validation)
     if (validation.length === 0){
       postMessage(this.state)
       this.setState({ text: '' })
@@ -61,8 +59,6 @@ class NewMessageForm extends React.Component {
       })
     }
   }
-
-
 
   addEmoji = (e) => {
     console.log(e.unified)
@@ -78,7 +74,7 @@ class NewMessageForm extends React.Component {
 
   render() {
 
-    let errors = this.state.errors.map(err => <li>{err}</li> )
+    let errors = this.state.errors.map(err => <p>{err}</p> )
 
     return (
       <div style={styles.container} className="newMessageForm">
@@ -90,9 +86,8 @@ class NewMessageForm extends React.Component {
             onChange={this.handleChange}
             placeholder="Type a message here then hit ENTER"
           />
-
         </form>
-        <ul>{errors}</ul>
+        <div style={{"color": "red"}}>{errors}</div>
         {
           this.state.showEmojis ?
             <span style={styles.emojiPicker} ref={el => (this.emojiPicker = el)}>

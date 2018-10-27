@@ -25,7 +25,7 @@ const styles = theme => ({
 class App extends Component {
 
   state = {
-    active_user : undefined,
+    active_user : '',
     signup: false
   }
 
@@ -43,17 +43,16 @@ class App extends Component {
 
   updateCurrentUser = () => {
     console.log("Attempting to fetch current user...");
-
     getCurrentUser(localStorage.getItem('token'))
-      .then(resp => {
-        if(resp.error) {
-          this.handleLogout();
-        } else {
-          this.setState({
-            active_user : resp
-          })
-        }
-      })
+    .then(resp => {
+      if(resp.error) {
+        this.handleLogout();
+      }else {
+        this.setState({
+          active_user : resp
+        })
+      }
+    })
   }
 
   toggleSignUp = () => {
@@ -70,12 +69,13 @@ class App extends Component {
   }
 
   render() {
+    console.log("72: ", this.state.activeUser)
     return (
       <div className="App">
         {
           this.state.active_user
           ?
-          <Fragment>
+            <Fragment>
               <NavBar
                 active_user={this.state.active_user}
                 handleLogout={this.handleLogout}
@@ -83,24 +83,24 @@ class App extends Component {
               <ConversationsList
                 activeUser={this.state.active_user}
               />
-          </Fragment>
-            :
+            </Fragment>
+          :
             <Fragment>
               {
                 this.state.signup
                 ?
-                   <SignUp
-                     handleLogin={this.handleLogin}
-                     toggleSignUp={this.toggleSignUp}
-                   />
-                 : <SignIn
+                  <SignUp
                     handleLogin={this.handleLogin}
                     toggleSignUp={this.toggleSignUp}
-                   />
+                  />
+                :
+                  <SignIn
+                    handleLogin={this.handleLogin}
+                    toggleSignUp={this.toggleSignUp}
+                  />
               }
             </Fragment>
         }
-
       </div>
     )
   }

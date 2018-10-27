@@ -152,7 +152,7 @@ class ConversationsList extends React.Component {
                 {
                   this.state.allConversations.map(conversation => {
                     return (
-                      <option value={conversation.id} id={conversation.id}>
+                      <option key={Math.random()} value={conversation.id} id={conversation.id}>
                         {conversation.title}
                       </option>
                     )

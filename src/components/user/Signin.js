@@ -53,14 +53,14 @@ class SignIn extends React.Component{
   handleSubmit = (event) => {
     event.preventDefault();
     loginUser(this.state)
-      .then(resp => {
-        if(resp.error) {
-          console.log("Response", resp);
-          console.log(resp.error);
-        } else {
-          this.props.handleLogin(resp)
-        }
-      })
+    .then(resp => {
+      if(resp.error) {
+        console.log("Response", resp);
+        console.log(resp.error);
+      }else {
+        this.props.handleLogin(resp)
+      }
+    })
   }
 
   handleChange = (event) => {

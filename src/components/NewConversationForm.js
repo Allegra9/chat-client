@@ -1,5 +1,6 @@
 import React from 'react';
 import { createConversation } from '../adapter/api';
+import validate from './validations'
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -7,20 +8,34 @@ import AddIcon from '@material-ui/icons/Add';
 class NewConversationForm extends React.Component {
 
   state={
-    title: ''
+    title: '',
+    errors: []
   }
 
   handleChange = (e) => {
-    this.setState({ title: e.target.value })
+    let validation = validate(e.target.value)
+    this.setState({
+      title: e.target.value,
+      errors: validation
+    })
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    createConversation(this.props.userId,this.state)
-    this.setState({ title: '' })
+    let validation = validate(this.state.title)
+    if (validation.length === 0){
+      createConversation(this.props.userId,this.state)
+      this.setState({ title: '' })
+    }else {
+      this.setState({
+        errors: validation
+      })
+    }
   }
 
   render() {
+
+    let errors = this.state.errors.map(err => <p>{err}</p> )
 
     return (
       <div style={styles.container} className="newConversationForm">
@@ -32,6 +47,7 @@ class NewConversationForm extends React.Component {
             onChange={this.handleChange}
             placeholder="Create a channel"
           />
+        <div style={{"color": "red"}}>{errors}</div>
           <Button
             onClick={this.handleSubmit}
             mini
