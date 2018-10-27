@@ -53,11 +53,10 @@ class NewMessageForm extends React.Component {
     if (validation.length === 0){
       postMessage(this.state)
       this.setState({ text: '' })
-    }else {
-      this.setState({
-        errors: validation
-      })
     }
+    this.setState({
+      errors: validation
+    })
   }
 
   addEmoji = (e) => {

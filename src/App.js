@@ -55,7 +55,8 @@ class App extends Component {
     })
   }
 
-  toggleSignUp = () => {
+  toggleSignUp = (e) => {
+    e.preventDefault()
     this.setState({
       signup: !this.state.signup
     })
@@ -86,6 +87,7 @@ class App extends Component {
             </Fragment>
           :
             <Fragment>
+              {console.log(this.state.signup)}
               {
                 this.state.signup
                 ?

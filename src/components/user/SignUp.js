@@ -49,17 +49,25 @@ class SignIn extends React.Component{
     username: '',
     password: '',
     name: '',
+    errors: {},
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     createUser(this.state)
-    .then(resp => {
-      if(resp.error) {
-        console.log("Response", resp);
-        console.log(resp.error);
+    .then(res => {
+      if(res.error) {
+        let errors = {}
+        console.log("Response", res);
+        console.log(res.error);
+        if (res.error === "*Username already exists"){
+          errors['username'] = res.error
+        }else {
+          errors['username'] = "*Oops...something went wrong. Could not create a new user"
+        }
+        this.setState({ errors })
       }else {
-        this.props.handleLogin(resp)
+        this.props.handleLogin(res)
       }
     })
   }
@@ -92,6 +100,7 @@ class SignIn extends React.Component{
                 <InputLabel htmlFor="username">Username</InputLabel>
                 <Input id="username" type="text" name="username" autoComplete="username" onChange={this.handleChange}/>
               </FormControl>
+              <div style={{'color': 'red'}}>{this.state.errors.username}</div>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
