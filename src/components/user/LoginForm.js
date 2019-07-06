@@ -1,33 +1,30 @@
-import React, {Component} from 'react'
+import React, { Component } from "react";
 
-import {loginUser} from '../../adapter/api'
-
+import { loginUser } from "../../adapter/api";
 
 class LoginForm extends Component {
-
   state = {
     username: "",
     password: ""
-  }
+  };
 
   //Send login reqeust and redirect
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
-    loginUser(this.state)
-    .then(resp => this.props.handleLogin(resp)) //REDIRECT TO CONVERSATIONS
+    loginUser(this.state).then(resp => this.props.handleLogin(resp)); //REDIRECT TO CONVERSATIONS
     //Fetch request to sessionscontroller as POST
-  }
+  };
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
-      [event.target.name]  : event.target.value
-    })
-  }
+      [event.target.name]: event.target.value
+    });
+  };
 
   render() {
     return (
       <div>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <form onSubmit={this.handleSubmit}>
           <input type="text" name="username" onChange={this.handleChange} />
           <input type="password" name="password" onChange={this.handleChange} />
           <input type="submit" />
@@ -35,7 +32,6 @@ class LoginForm extends Component {
       </div>
     );
   }
-
 }
 
-export default LoginForm
+export default LoginForm;

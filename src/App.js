@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from "react";
 
-import ConversationsList from './components/ConversationsList'
-import SignIn from './components/user/Signin'
-import SignUp from './components/user/SignUp'
-import NavBar from './components/NavBar'
+import ConversationsList from "./components/ConversationsList";
+import SignIn from "./components/user/Signin";
+import SignUp from "./components/user/SignUp";
+import NavBar from "./components/NavBar";
 
-import { withStyles } from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles";
 
-import {getCurrentUser} from './adapter/api'
+import { getCurrentUser } from "./adapter/api";
 
 const styles = theme => ({
   root: {
@@ -20,92 +20,84 @@ const styles = theme => ({
   control: {
     padding: theme.spacing.unit * 2
   }
-})
+});
 
 class App extends Component {
-
   state = {
-    active_user : '',
+    active_user: "",
     signup: false
-  }
+  };
 
-  handleLogin = (response) => { //passed as props to SignIn
+  handleLogin = response => {
+    //passed as props to SignIn
     console.log(response);
-    localStorage.setItem('token', response.token);
-      this.updateCurrentUser(response.token);
-  }
+    localStorage.setItem("token", response.token);
+    this.updateCurrentUser(response.token);
+  };
 
   componentDidMount() {
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem("token")) {
       this.updateCurrentUser();
     }
   }
 
   updateCurrentUser = () => {
     console.log("Attempting to fetch current user...");
-    getCurrentUser(localStorage.getItem('token'))
-    .then(resp => {
-      if(resp.error) {
+    getCurrentUser(localStorage.getItem("token")).then(resp => {
+      if (resp.error) {
         this.handleLogout();
-      }else {
+      } else {
         this.setState({
-          active_user : resp
-        })
+          active_user: resp
+        });
       }
-    })
-  }
+    });
+  };
 
-  toggleSignUp = (e) => {
-    e.preventDefault()
+  toggleSignUp = e => {
+    e.preventDefault();
     this.setState({
       signup: !this.state.signup
-    })
-  }
+    });
+  };
 
   handleLogout = () => {
     this.setState({
-      active_user : undefined
-    })
+      active_user: undefined
+    });
     localStorage.clear();
-  }
+  };
 
   render() {
-    console.log("72: ", this.state.activeUser)
     return (
       <div className="App">
-        {
-          this.state.active_user
-          ?
-            <Fragment>
-              <NavBar
-                active_user={this.state.active_user}
-                handleLogout={this.handleLogout}
+        {this.state.active_user ? (
+          <Fragment>
+            <NavBar
+              active_user={this.state.active_user}
+              handleLogout={this.handleLogout}
+            />
+            <ConversationsList activeUser={this.state.active_user} />
+          </Fragment>
+        ) : (
+          <Fragment>
+            {console.log(this.state.signup)}
+            {this.state.signup ? (
+              <SignUp
+                handleLogin={this.handleLogin}
+                toggleSignUp={this.toggleSignUp}
               />
-              <ConversationsList
-                activeUser={this.state.active_user}
+            ) : (
+              <SignIn
+                handleLogin={this.handleLogin}
+                toggleSignUp={this.toggleSignUp}
               />
-            </Fragment>
-          :
-            <Fragment>
-              {console.log(this.state.signup)}
-              {
-                this.state.signup
-                ?
-                  <SignUp
-                    handleLogin={this.handleLogin}
-                    toggleSignUp={this.toggleSignUp}
-                  />
-                :
-                  <SignIn
-                    handleLogin={this.handleLogin}
-                    toggleSignUp={this.toggleSignUp}
-                  />
-              }
-            </Fragment>
-        }
+            )}
+          </Fragment>
+        )}
       </div>
-    )
+    );
   }
 }
 
-export default withStyles(styles)(App)
+export default withStyles(styles)(App);

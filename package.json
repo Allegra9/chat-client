@@ -5,18 +5,24 @@
   "dependencies": {
     "@material-ui/core": "^1.5.0",
     "@material-ui/icons": "^2.0.2",
-    "emoji-mart": "^2.8.1",
+    "emoji-mart": "^2.11.1",
     "merge": "^1.2.1",
-    "react": "^16.4.2",
+    "react": "^16.8.6",
     "react-actioncable-provider": "^1.0.3",
-    "react-dom": "^16.4.2",
+    "react-dom": "^16.8.6",
     "react-emoji-render": "^0.4.5",
-    "react-scripts": "1.1.4"
+    "react-scripts": "^2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
