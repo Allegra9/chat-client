@@ -19,11 +19,14 @@ const styles = {
   message: {
     fontSize: 15
   },
-  date: {
+  time: {
     fontSize: "12px",
     color: "grey",
     fontStyle: "italic",
     fontWeight: 500
+  },
+  date: {
+    textAlign: "center"
   }
 };
 
@@ -87,16 +90,33 @@ const orderedMessages = messages => {
   console.log(messageDates);
   console.log(uniqueDates[0]);
 
-  return sortedMessages.map(message => {
-    return (
-      <div>
-        <div style={styles.date}>{formatDate(message.created_at)} </div>
-        <span style={styles.senderUsername} key={message.id}>
-          {message.user_name}{" "}
-          <span style={styles.date}>{formatTime(message.created_at)}</span>
-        </span>
-        <li style={styles.li}>{message.text}</li>
-      </div>
-    );
-  });
+  return (
+    <div>
+      {uniqueDates.map((date, i) => (
+        <div key={i}>
+          <div style={styles.date}>{date}</div>
+          <hr />
+          {sortedMessages.map((message, i) => {
+            return (
+              <React.Fragment key={i}>
+                {formatDate(message.created_at) === date ? (
+                  <div>
+                    <span style={styles.senderUsername} key={message.id}>
+                      {message.user_name}{" "}
+                      <span style={styles.time}>
+                        {formatTime(message.created_at)}
+                      </span>
+                    </span>
+                    <li style={styles.li} key={i}>
+                      {message.text}
+                    </li>
+                  </div>
+                ) : null}
+              </React.Fragment>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
 };
