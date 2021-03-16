@@ -1,6 +1,6 @@
 import React from "react";
 import { postMessage } from "../adapter/api";
-import validate from "./validations";
+import validate from "./Validations";
 
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
